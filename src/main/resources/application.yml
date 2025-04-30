@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: T1_OpenSchool
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/T1OpenSchoolDB
+    username: postgres
+    password: 12345
+
+  sql:
+    init:
+      mode: always
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+
+server:
+  port: 8081

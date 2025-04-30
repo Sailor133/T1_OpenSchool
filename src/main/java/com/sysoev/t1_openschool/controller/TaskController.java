@@ -1,10 +1,9 @@
 package com.sysoev.t1_openschool.controller;
 
 import com.sysoev.t1_openschool.aspect.annotation.LogEnterTask;
-import com.sysoev.t1_openschool.model.Task;
+import com.sysoev.t1_openschool.dto.task.request.TaskRequestDto;
+import com.sysoev.t1_openschool.dto.task.response.TaskResponseDto;
 import com.sysoev.t1_openschool.service.TaskService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,43 +19,29 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> getAllTasks() {
+    public List<TaskResponseDto> getAllTasks() {
         return taskService.getAllTasks();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Task> getTaskById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(taskService.getTaskById(id));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public TaskResponseDto getTaskById(@PathVariable Long id) {
+        return taskService.getTaskById(id);
     }
 
     @PostMapping
     @LogEnterTask
-    public Task createTask(@RequestBody Task task) {
-        return taskService.createTask(task);
+    public TaskResponseDto createTask(@RequestBody TaskRequestDto requestTaskDto) {
+        return taskService.createTask(requestTaskDto);
     }
 
     @PutMapping("/{id}")
     @LogEnterTask
-    public ResponseEntity<Task> updateTask(@PathVariable Long id, @RequestBody Task task) {
-        try {
-            return  ResponseEntity.ok(taskService.updateTask(id, task));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
+    public TaskResponseDto updateTask(@PathVariable Long id, @RequestBody TaskRequestDto requestTaskDto) {
+        return taskService.updateTask(id, requestTaskDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTask(@PathVariable Long id) {
-        try {
-            taskService.deleteTask(id);
-            return ResponseEntity.noContent().build();
-        }
-        catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-            }
+    public void deleteTask(@PathVariable Long id) {
+        taskService.deleteTask(id);
     }
 }
