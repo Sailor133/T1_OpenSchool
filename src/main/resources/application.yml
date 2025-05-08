@@ -16,5 +16,38 @@ spring:
       ddl-auto: update
     show-sql: false
 
+  kafka:
+    bootstrap-servers: localhost:9092
+    topic: taskTopic
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      enabled: true
+
+    consumer:
+      group-id: task
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.sysoev.t1_openschool.dto
+        spring.json.value.default.type: com.sysoev.t1_openschool.dto.TaskResponseDto
+        spring.json.use.type.headers: false
+
+
+
+  mail:
+    host: smtp.mail.ru
+    port: 587
+    username: prikolprikolovi4@mail.ru
+    password: XiYSpFdpr1HrcsdgPa76
+    recipient: sisoev02@internet.ru
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.starttls.enable: true
+      mail.smtp.ssl.trust: smtp.mail.ru
+
+
 server:
   port: 8081
+

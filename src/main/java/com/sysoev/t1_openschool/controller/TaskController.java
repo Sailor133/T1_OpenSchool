@@ -1,8 +1,8 @@
 package com.sysoev.t1_openschool.controller;
 
 import com.sysoev.t1_openschool.aspect.annotation.LogEnterTask;
-import com.sysoev.t1_openschool.dto.task.request.TaskRequestDto;
-import com.sysoev.t1_openschool.dto.task.response.TaskResponseDto;
+import com.sysoev.t1_openschool.dto.TaskRequestDto;
+import com.sysoev.t1_openschool.dto.TaskResponseDto;
 import com.sysoev.t1_openschool.service.TaskService;
 import org.springframework.web.bind.annotation.*;
 

@@ -27,8 +27,8 @@ public class LoggingAspect {
         }
     }
 
-    //Логируем успешную обработку сервисов
 
+    //Логируем успешную обработку сервисов
     @AfterReturning(
             pointcut = "execution(* com.sysoev.t1_openschool.service..*(..))",
             returning = "result"
