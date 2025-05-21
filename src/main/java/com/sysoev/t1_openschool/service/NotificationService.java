@@ -1,6 +1,6 @@
 package com.sysoev.t1_openschool.service;
 
-import com.sysoev.t1_openschool.dto.TaskResponseDto;
+import com.sysoev.t1_openschool.dto.KafkaUpdatingDto;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -20,7 +20,7 @@ public class NotificationService {
         this.mailSender = mailSender;
     }
 
-    public void sendTaskStatusChangeEmail(TaskResponseDto task) {
+    public void sendTaskStatusChangeEmail(KafkaUpdatingDto task) {
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(recipient);

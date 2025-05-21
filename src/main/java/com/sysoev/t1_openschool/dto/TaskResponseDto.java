@@ -1,12 +1,15 @@
 package com.sysoev.t1_openschool.dto;
 
-import lombok.Data;
+import com.sysoev.t1_openschool.model.enums.TaskStatus;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class TaskResponseDto {
     private Long id;
     private String title;
-    private String status;
+    private TaskStatus status;
     private String description;
     private Long userId;
 }

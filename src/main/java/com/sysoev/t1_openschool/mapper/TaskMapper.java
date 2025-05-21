@@ -1,5 +1,6 @@
 package com.sysoev.t1_openschool.mapper;
 
+import com.sysoev.t1_openschool.dto.KafkaUpdatingDto;
 import com.sysoev.t1_openschool.dto.TaskRequestDto;
 import com.sysoev.t1_openschool.dto.TaskResponseDto;
 import com.sysoev.t1_openschool.model.Task;
@@ -23,6 +24,13 @@ public class TaskMapper {
         dto.setStatus(task.getStatus());
         dto.setDescription(task.getDescription());
         dto.setUserId(task.getUserId());
+        return dto;
+    }
+
+    public KafkaUpdatingDto toKafkaDto(Task task) {
+        KafkaUpdatingDto dto = new KafkaUpdatingDto();
+        dto.setId(task.getId());
+        dto.setStatus(task.getStatus());
         return dto;
     }
 }

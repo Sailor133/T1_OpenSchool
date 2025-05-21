@@ -7,6 +7,7 @@ import com.sysoev.t1_openschool.dto.TaskResponseDto;
 import com.sysoev.t1_openschool.exeption.TaskNotFoundException;
 import com.sysoev.t1_openschool.mapper.TaskMapper;
 import com.sysoev.t1_openschool.model.Task;
+import com.sysoev.t1_openschool.model.enums.TaskStatus;
 import com.sysoev.t1_openschool.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
@@ -48,22 +49,22 @@ public class TaskService {
 
     @ExecutionTimeMeasuring
     public TaskResponseDto updateTask(Long id, TaskRequestDto enterTask) {
-        Task existingTask = taskRepository.findById(id)
+        Task existing = taskRepository.findById(id)
                 .orElseThrow(() -> new TaskNotFoundException("Task not found with id: " + id));
 
-        Task updatedTask = taskMapper.toEntity(enterTask);
-        updatedTask.setId(id);
+        TaskStatus oldStatus = existing.getStatus();
 
-        boolean statusChanged = !Objects.equals(existingTask.getStatus(), updatedTask.getStatus());
+        existing.setTitle(enterTask.getTitle());
+        existing.setDescription(enterTask.getDescription());
+        existing.setStatus(enterTask.getStatus());
 
-        Task savedTask = taskRepository.save(updatedTask);
-        TaskResponseDto taskDto = taskMapper.toDto(savedTask);
+        Task saved = taskRepository.save(existing);
 
-        if (statusChanged) {
-            kafkaProducer.sendChangedTaskStatus(taskDto);
+        if (!Objects.equals(oldStatus, enterTask.getStatus())) {
+            kafkaProducer.sendChangedTaskStatus(taskMapper.toKafkaDto(saved));
         }
 
-        return taskDto;
+        return taskMapper.toDto(saved);
     }
 
 

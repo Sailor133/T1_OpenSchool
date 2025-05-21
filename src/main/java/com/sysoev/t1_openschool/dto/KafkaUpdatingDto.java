@@ -6,9 +6,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class TaskRequestDto {
-    private String title;
+public class KafkaUpdatingDto {
+    private Long id;
     private TaskStatus status;
-    private String description;
-    private Long userId;
+
 }
